@@ -1,0 +1,88 @@
+{% load static %}
+<nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="{% url 'downline_listing' %}">
+            <span class="sidebar-brand-text align-middle">{{ request.user.username }}'s Dashboard</span>
+        </a>
+
+        <div class="sidebar-user">
+            <div class="d-flex justify-content-center">
+                <div class="flex-shrink-0">
+                    <img src="{% static 'img/avatars/avatar.jpg' %}" class="avatar img-fluid rounded me-1"
+                         alt="Charles Hall"/>
+                </div>
+                <div class="flex-grow-1 ps-2">
+                    <a class="sidebar-user-title dropdown-toggle" href="#"
+                       data-bs-toggle="dropdown">{{ request.user.username }}</a>
+                    <div class="dropdown-menu dropdown-menu-start">
+                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
+                            Analytics</a>
+                    </div>
+                    <div class="sidebar-user-subtitle">Bookie</div>
+                </div>
+            </div>
+        </div>
+<ul class="sidebar-nav">
+            <li class="sidebar-header">Pages</li>
+            <li class="sidebar-item {% if request.resolver_match.url_name == 'downline_listing' %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'downline_listing' %}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Downline Listing</span>
+                </a>
+            </li>
+            <li class="sidebar-item {% if request.resolver_match.url_name == 'downline_search' %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'downline_search' %}">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Downline Search</span>
+                </a>
+            </li>
+            <li class="sidebar-item {% if request.resolver_match.url_name == 'risk_management' %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'risk_management' %}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Risk Management</span>
+                </a>
+            </li>
+            <li class="sidebar-item {% if request.resolver_match.url_name == 'banking' %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'banking' %}">
+                    <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Banking</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a data-bs-target="#report" data-bs-toggle="collapse" class="sidebar-link {% if 'report' in request.resolver_match.url_name %}collapsed{% endif %}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">My Report</span>
+                </a>
+                <ul id="report" class="sidebar-dropdown list-unstyled collapse {% if 'report' in request.resolver_match.url_name %}show{% endif %}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {% if request.resolver_match.url_name == 'report_by_player' %}active{% endif %}">
+                        <a class='sidebar-link' href='{% url "report_by_player" %}'>Profit/Loss Report By Player</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a data-bs-target="#bet" data-bs-toggle="collapse" class="sidebar-link {% if 'bet_list' in request.resolver_match.url_name %}collapsed{% endif %}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Bet List</span>
+                </a>
+                <ul id="bet" class="sidebar-dropdown list-unstyled collapse {% if 'bet_list' in request.resolver_match.url_name %}show{% endif %}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {% if request.resolver_match.url_name == 'bet_list' %}active{% endif %}">
+                        <a class='sidebar-link' href='{% url "bet_list" %}'>Bet List</a>
+                    </li>
+                    <li class="sidebar-item {% if request.resolver_match.url_name == 'bet_list_live' %}active{% endif %}">
+                        <a class='sidebar-link' href='{% url "bet_list_live" %}'>Bet List Live!</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item {% if request.resolver_match.url_name == 'my_account' %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'my_account' %}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">My account</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a data-bs-target="#game" data-bs-toggle="collapse" class="sidebar-link {% if request.resolver_match.url_name == 'player_battle' %}collapsed{% endif %}">
+                    <i class="align-middle" data-feather="play"></i> <span class="align-middle">Games</span>
+                </a>
+                <ul id="game" class="sidebar-dropdown list-unstyled collapse {% if request.resolver_match.url_name == 'player_battle' %}show{% endif %}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {% if request.resolver_match.url_name == 'player_battle' %}active{% endif %}">
+                        <a class='sidebar-link' href='{% url "player_battle" %}'>Player Battle</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

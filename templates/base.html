@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin & Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords" content="adminkit, bootstrap, admin, dashboard, template, responsive, html, css, theme">
+
+    <link href="{% static 'css/light.css' %}" rel="stylesheet">
+{#    <script src="{% static 'js/settings.js' %}"></script>#}
+    <script src={% static "js/app.js" %}></script>
+    <script src={% static "js/datatables.js" %}></script>
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+</head>
+
+<body data-theme=" default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+<div class="wrapper">
+    <!-- Include sidebar -->
+    {% include 'sidebar.html' %}
+
+    <div class="main">
+        <!-- Navbar content here -->
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav navbar-align">
+                    <li class="nav-item dropdown">
+                        {% if request.user.is_superuser %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#defaultModalPrimary">
+                            <i class="fa fa-plus m-1"></i>
+                            Add New Member
+                        </button>
+                        {% endif %}
+                        <div class="modal fade" id="defaultModalPrimary" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add member</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body m-3">
+                                        <div class="col-12">
+                                            <form method="POST" action="{% url 'create_subprofile' %}">
+                                                {% csrf_token %}
+
+                                                <div class="row">
+                                                    <!-- Username -->
+                                                    <div class="col-12 col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Username</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="username" placeholder="Enter username"
+                                                                   required/>
+                                                        </div>
+
+                                                        <!-- Password -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Password</label>
+                                                            <input type="password" class="form-control"
+                                                                   name="password" placeholder="Enter password"
+                                                                   required/>
+                                                        </div>
+
+                                                        <!-- Nickname -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Nickname</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="nickname" placeholder="Enter nickname"
+                                                                   required/>
+                                                        </div>
+
+                                                        <!-- Balance -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Balance</label>
+                                                            <input type="number" class="form-control"
+                                                                   name="balance" placeholder="Enter balance"
+                                                                   step="0.01" required/>
+                                                        </div>
+
+                                                        <!-- Exposure Limit -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Exposure Limit</label>
+                                                            <input type="number" class="form-control"
+                                                                   name="exposure_limit"
+                                                                   placeholder="Enter exposure limit"
+                                                                   step="0.01" required/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 col-xl-6">
+                                                        <!-- Is Active -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Is Active</label>
+                                                            <select name="is_active" class="form-control">
+                                                                <option value="true">Yes</option>
+                                                                <option value="false">No</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Is Suspended -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Is Suspended</label>
+                                                            <select name="is_suspended" class="form-control">
+                                                                <option value="false">No</option>
+                                                                <option value="true">Yes</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Is Locked -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Is Locked</label>
+                                                            <select name="is_locked" class="form-control">
+                                                                <option value="false">No</option>
+                                                                <option value="true">Yes</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-grid gap-2 mt-3">
+                                                    <button class="btn btn-primary" type="submit">Add Member
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <img src="{% static 'img/avatars/avatar.jpg' %}" class="avatar img-fluid rounded"
+                                 alt="Charles Hall"/>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Log out</button>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content area -->
+        <main class="content">
+            {% block content %}
+                <!-- Placeholder for content -->
+            {% endblock content %}
+        </main>
+    </div>
+</div>
+
+</body>
+</html>
